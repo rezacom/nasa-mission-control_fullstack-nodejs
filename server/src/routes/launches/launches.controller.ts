@@ -27,13 +27,16 @@ function httpAddNewLaunches(req: any, res: any) {
 
 function httpDeleteAbortLaunch(req: any, res: any) {
 
-    if (!models.existsLaunchWithId(req.params?.id)) {
+    const id = Number(req.params?.id);
+
+    if (!models.existsLaunchWithId(id)) {
         return res.status(400).json({
             error: "Exists This Launch"
         });
     }
 
-    return res.status(200).json({ message: "deleted" })
+    const abort = models.abortLaunchById(id)
+    return res.status(200).json(abort)
 }
 
 export {
